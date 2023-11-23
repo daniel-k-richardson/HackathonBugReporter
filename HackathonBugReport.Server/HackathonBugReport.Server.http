@@ -1,0 +1,6 @@
+@HackathonBugReport.Server_HostAddress = http://localhost:5197
+
+GET {{HackathonBugReport.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

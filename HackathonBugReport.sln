@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonBugReport.Server", "HackathonBugReport.Server\HackathonBugReport.Server.csproj", "{C6238CFD-AB61-4D27-98DB-A9DA02811343}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "hackathonbugreport.client", "hackathonbugreport.client\hackathonbugreport.client.esproj", "{A7AADC95-425E-47AE-8930-BC8EB03BB951}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6238CFD-AB61-4D27-98DB-A9DA02811343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6238CFD-AB61-4D27-98DB-A9DA02811343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6238CFD-AB61-4D27-98DB-A9DA02811343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6238CFD-AB61-4D27-98DB-A9DA02811343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7AADC95-425E-47AE-8930-BC8EB03BB951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7AADC95-425E-47AE-8930-BC8EB03BB951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7AADC95-425E-47AE-8930-BC8EB03BB951}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A7AADC95-425E-47AE-8930-BC8EB03BB951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7AADC95-425E-47AE-8930-BC8EB03BB951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7AADC95-425E-47AE-8930-BC8EB03BB951}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CAE6A046-0666-47CE-82A3-1703525CEB13}
+	EndGlobalSection
+EndGlobal
