@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.HostedService;
@@ -25,19 +26,14 @@ internal class DatabaseMigrationService : IHostedService
             {
                 var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-                if (context.Database.EnsureCreated())
-                {
-                    context.Database.Migrate();
-                }
-
                 if (context.Database.GetPendingMigrations().Any())
                 {
                     context.Database.Migrate();
                 }
             }
-            catch (Exception expection)
+            catch (Exception exception)
             {
-                _logger.LogError(default, expection);
+                _logger.LogError(default, exception);
                 throw;
             }
         }
