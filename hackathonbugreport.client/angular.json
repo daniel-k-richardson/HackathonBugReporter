@@ -7,7 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": false,
+          "style": "sass"
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -23,6 +24,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "oidc-client"
+            ],
             "outputPath": "dist/hackathonbugreport.client",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -35,7 +39,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.sass"
             ],
             "scripts": []
           },
@@ -97,7 +101,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.sass"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"

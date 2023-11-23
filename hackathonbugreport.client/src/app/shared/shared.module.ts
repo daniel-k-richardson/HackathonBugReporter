@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-//import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 import { pipes } from './pipes';
 
@@ -14,18 +14,18 @@ import { pipes } from './pipes';
     pipes,
   ],
   imports: [
-    // CommonModule,
-    // RouterModule,
+    CommonModule,
+    RouterModule,
     // FormsModule,
     // ReactiveFormsModule,
-    // NgbModule,
+    NgbModule,
   ],
   exports: [
-    // CommonModule,
-    // RouterModule,
+    CommonModule,
+    RouterModule,
     // FormsModule,
     // ReactiveFormsModule,
-    // NgbModule,
+    NgbModule,
     pipes,
   ],
   providers: [

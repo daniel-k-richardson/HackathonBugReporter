@@ -80,6 +80,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    console.log(this.user);
     return this.user && !this.user.expired;
   }
 

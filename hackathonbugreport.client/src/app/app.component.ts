@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth.service';
 
 interface WeatherForecast {
   date: string;
@@ -15,11 +16,21 @@ interface WeatherForecast {
 })
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
+  private userAuthenticatedSubscription: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
+    this.userAuthenticatedSubscription = this.authService.userAuthenticated.subscribe();
+  }
 
   ngOnInit() {
     this.getForecasts();
+  }
+
+  ngOnDestroy() {
+    this.userAuthenticatedSubscription.unsubsribe();
   }
 
   getForecasts() {

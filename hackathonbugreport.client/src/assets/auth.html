@@ -1,0 +1,10 @@
+<script src="./oidc-client.min.js"></script>
+<script>
+	var userManager = new Oidc.UserManager({
+    userStore: new Oidc.WebStorageStateStore({store: window.localStorage}),
+    response_mode: 'query'
+  });
+	userManager.signinRedirectCallback().then(() => {
+    window.location = window.location.origin;
+  });
+</script>
