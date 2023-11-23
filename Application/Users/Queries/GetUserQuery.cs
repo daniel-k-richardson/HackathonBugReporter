@@ -4,7 +4,7 @@ using MediatR;
 namespace Application.Users.Queries;
 public class GetUserQuery : IRequest<GlobalUser>
 {
-    private int UserId { get; }
+    public int UserId { get; }
 
     public GetUserQuery(int userId)
     {

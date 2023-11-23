@@ -1,17 +1,19 @@
 ﻿using Application.Common;
 using Application.Users.Queries;
+using Domain.Entities;
+using MediatR;
 
 namespace Application.Users.Events
 {
-    public class GetUserHandler : IrequestHandler<GetUserQuery, GlobalUser>
+    public class GetUserHandler : IRequestHandler<GetUserQuery, GlobalUser>
     {
         private readonly IUserService _context;
 
         public GetUserHandler(IUserService context) => _context = context;
 
-        public async Task<IEnumerable<GlobalUser>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<GlobalUser?> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            var result = _context.GetUserAsync();
+            var result = await _context.GetUserAsync(request.UserId);
             return result;
         }
     }

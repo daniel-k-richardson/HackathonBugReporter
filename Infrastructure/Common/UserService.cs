@@ -14,8 +14,8 @@ public class UserService : IUserService
         return _context.GlobalUsers.AsEnumerable();
     }
 
-    public async Task<GlobalUser> GetUserAsync(int id)
+    public async Task<GlobalUser?> GetUserAsync(int id)
     {
-        return await _context.GlobalUsers.FindAsync(id) ?? new();
+        return await _context.GlobalUsers.FindAsync(id);
     }
 }
