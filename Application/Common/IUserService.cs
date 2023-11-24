@@ -1,11 +1,12 @@
 ﻿using Domain.Entities;
+using LanguageExt.Common;
 
 namespace Application.Common;
 public interface IUserService
 {
-    IEnumerable<GlobalUser> GetAllUsers();
-    Task<GlobalUser?> GetUserAsync(int id);
-    Task<GlobalUser> CreateUserAsync(GlobalUser user);
-    Task<GlobalUser> UpdateUserAsync(int id, GlobalUser user);
-    Task<bool> DeleteUserAsync(int id);
+    Task<Result<IList<GlobalUser>>> GetAllUsersAsync();
+    Task<Result<GlobalUser?>> GetUserAsync(int id);
+    Task<Result<GlobalUser>> CreateUserAsync(GlobalUser user);
+    Task<Result<GlobalUser?>> UpdateUserAsync(int id, GlobalUser user);
+    Task<Result<bool>> DeleteUserAsync(int id);
 }

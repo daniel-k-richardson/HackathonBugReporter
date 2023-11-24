@@ -1,14 +1,15 @@
 ﻿
 using Domain.Entities;
+using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Users.Commands;
-public class CreateUserRequest : IRequest<GlobalUser>
+public class CreateUserCommand : IRequest<Result<GlobalUser>>
 {
 
     public GlobalUser UserRequest { get; }
 
-    public CreateUserRequest(GlobalUser userRequest)
+    public CreateUserCommand(GlobalUser userRequest)
     {
         UserRequest = userRequest;
     }

@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackathonBugReport.Server.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
@@ -18,8 +19,8 @@ public class UsersController : ControllerBase
     {
         var query = new GetAllUsersQuery();
         var result = await _mediator.Send(query);
+        return result.Match<IActionResult>(success => Ok(success), error => BadRequest(error));
 
-        return Ok(result);
     }
 
     [HttpGet("{Id}")]
@@ -27,38 +28,34 @@ public class UsersController : ControllerBase
     {
         var query = new GetUserQuery(Id);
         var result = await _mediator.Send(query);
-        return Ok(result);
+        return result.Match<IActionResult>(success => success is null ? NotFound() : Ok(success), error => BadRequest(error));
     }
 
     [HttpPost()]
     public async Task<IActionResult> Post(GlobalUser user)
     {
-        var query = new CreateUserRequest(user);
+        var query = new CreateUserCommand(user);
         var result = await _mediator.Send(query);
-
-        return Ok(result);
+        return result.Match<IActionResult>(success => Ok(success), error => BadRequest(error));
     }
 
     [HttpPut("{Id}")]
     public async Task<IActionResult> Put(int id, GlobalUser user)
     {
-        if (id != user.Id)
-        {
-            return BadRequest("Id's don't match");
-        }
 
-        var updateQuery = new UpdateUserRequest(id, user);
+        var updateQuery = new UpdateUserCommand(id, user);
         var result = await _mediator.Send(updateQuery);
 
-        return Ok(result);
+        return result.Match<IActionResult>(success => Ok(success), error => BadRequest(error));
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var query = new DeleteUserRequest(id);
+        var query = new DeleteUserCommand(id);
         var result = await _mediator.Send(query);
-        return Ok(result);
+
+        return result.Match<IActionResult>(success => NoContent(), error => BadRequest(error));
     }
 
     [HttpGet("{id}/assigned-bugs")]
