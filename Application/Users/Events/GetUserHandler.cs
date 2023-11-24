@@ -11,7 +11,7 @@ namespace Application.Users.Events
 
         public GetUserHandler(IUserService context) => _context = context;
 
-        public async Task<GlobalUser?> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<GlobalUser> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var result = await _context.GetUserAsync(request.UserId);
             return result;

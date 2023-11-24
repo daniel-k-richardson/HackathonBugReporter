@@ -1,4 +1,5 @@
-﻿using Application.Users.Queries;
+﻿using Application.Users.Commands;
+using Application.Users.Queries;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,6 @@ public class UsersController : ControllerBase
 
     private readonly IMediator _mediator;
     public UsersController(IMediator mediator) => _mediator = mediator;
-
 
     [HttpGet]
     public async Task<IActionResult> Get()
@@ -27,33 +27,39 @@ public class UsersController : ControllerBase
     {
         var query = new GetUserQuery(Id);
         var result = await _mediator.Send(query);
-
-        if (result is null)
-        {
-            return NotFound();
-        }
-
         return Ok(result);
     }
 
     [HttpPost()]
     public async Task<IActionResult> Post(GlobalUser user)
     {
-        return Ok();
+        var query = new CreateUserRequest(user);
+        var result = await _mediator.Send(query);
+
+        return Ok(result);
     }
 
     [HttpPut("{Id}")]
-    public async Task<IActionResult> Put(int Id, GlobalUser user)
+    public async Task<IActionResult> Put(int id, GlobalUser user)
     {
-        return Ok();
+        if (id != user.Id)
+        {
+            return BadRequest("Id's don't match");
+        }
+
+        var updateQuery = new UpdateUserRequest(id, user);
+        var result = await _mediator.Send(updateQuery);
+
+        return Ok(result);
     }
 
-    [HttpDelete("{Id}")]
-    public async Task<IActionResult> Delete(int Id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        return Ok();
+        var query = new DeleteUserRequest(id);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
-
 
     [HttpGet("{id}/assigned-bugs")]
     public async Task<IActionResult> AllAssignedBugs(int Id)

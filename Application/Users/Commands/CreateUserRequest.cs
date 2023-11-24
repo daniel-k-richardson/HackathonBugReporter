@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Domain.Entities;
+using MediatR;
 
 namespace Application.Users.Commands;
-internal class CreateUserRequest
+public class CreateUserRequest : IRequest<GlobalUser>
 {
+
+    public GlobalUser UserRequest { get; }
+
+    public CreateUserRequest(GlobalUser userRequest)
+    {
+        UserRequest = userRequest;
+    }
 }
