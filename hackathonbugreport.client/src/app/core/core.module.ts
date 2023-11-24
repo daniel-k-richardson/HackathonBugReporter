@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
-// import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 import { LoginComponent } from './login/login.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,9 +14,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, NavbarComponent],
   imports: [RouterModule.forChild(routes), SharedModule],
-  //exports: [NavbarComponent],
+  exports: [NavbarComponent],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

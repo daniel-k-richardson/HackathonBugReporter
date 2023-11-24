@@ -1,6 +1,7 @@
 import { NgModule, inject } from '@angular/core';
 import { PreloadAllModules, Router, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
 import { AuthService } from './auth.service';
+import { LoginComponent } from './core/login/login.component';
 
 const authGuard = (_: any, state: RouterStateSnapshot) => {
   const authService = inject(AuthService);
@@ -29,6 +30,11 @@ const routes: Routes = [
         loadChildren: () => import('./bugs/bugs.module').then(m => m.BugsModule)
       },
     ],
+  },
+  {
+    path: 'login',
+    pathMatch: 'full',
+    component: LoginComponent
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

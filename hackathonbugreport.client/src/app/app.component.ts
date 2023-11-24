@@ -15,14 +15,17 @@ interface WeatherForecast {
   styleUrl: './app.component.sass'
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+  forecasts: WeatherForecast[] = [];
+  isLoggedIn = false;
   private userAuthenticatedSubscription: any;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) {
-    this.userAuthenticatedSubscription = this.authService.userAuthenticated.subscribe();
+    this.userAuthenticatedSubscription = this.authService.userAuthenticated.subscribe(() => {
+      this.isLoggedIn = this.authService.isLoggedIn();
+    });
   }
 
   ngOnInit() {
