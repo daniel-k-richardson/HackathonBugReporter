@@ -1,15 +1,15 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
-using Infrastructure.Data;
 using LanguageExt.Common;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Infrastructure.Common;
 public class UserService : IUserService
 {
-    private readonly AppDbContext _context;
+    private readonly IAppDbContext _context;
 
-    public UserService(AppDbContext context) => _context = context;
+    public UserService(IAppDbContext context) => _context = context;
 
     public async Task<Result<GlobalUser>> CreateUserAsync(GlobalUser user)
     {
@@ -29,7 +29,9 @@ public class UserService : IUserService
 
     public async Task<Result<IList<GlobalUser>>> GetAllUsersAsync()
     {
-        return await _context.GlobalUsers.ToListAsync();
+        var result = await _context.GlobalUsers.ToListAsync();
+
+        return result;
     }
 
     public async Task<Result<GlobalUser?>> GetUserAsync(int id)

@@ -17,8 +17,10 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });
 
-        services.AddHostedService<DatabaseMigrationService>();
+        services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
 
+        
+        services.AddHostedService<DatabaseMigrationService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IBugService, BugService>();
 

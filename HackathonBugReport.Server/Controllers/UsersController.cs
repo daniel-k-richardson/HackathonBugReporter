@@ -1,4 +1,7 @@
-﻿using Application.Users.Commands;
+﻿using Application.Common.Dtos;
+using Application.Users.Commands.CreateUser;
+using Application.Users.Commands.DeleteUser;
+using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries;
 using Domain.Entities;
 using MediatR;
@@ -17,7 +20,7 @@ public class UsersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var query = new GetAllUsersQuery();
+        var query = new GetUsersQuery();
         var result = await _mediator.Send(query);
 
         return result.Match<IActionResult>(
@@ -31,16 +34,19 @@ public class UsersController : ControllerBase
     {
         var query = new GetUserQuery(Id);
         var result = await _mediator.Send(query);
+
+
         return result.Match<IActionResult>(
             success => success is null ? NotFound() : Ok(success),
             error => BadRequest(error));
     }
 
     [HttpPost()]
-    public async Task<IActionResult> Post(GlobalUser user)
+    public async Task<IActionResult> Post(User user)
     {
         var query = new CreateUserCommand(user);
         var result = await _mediator.Send(query);
+
         return result.Match<IActionResult>(
             success => Ok(success),
             error => BadRequest(error));

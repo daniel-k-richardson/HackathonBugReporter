@@ -1,14 +1,18 @@
-﻿namespace Infrastructure.Data;
-
+﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : DbContext
+namespace Infrastructure.Data;
+
+
+public class AppDbContext : DbContext, IAppDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
-    public DbSet<Bug> Bugs { get; set; }
-    public DbSet<GlobalUser> GlobalUsers { get; set; }
-    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Bug> Bugs => Set<Bug>();
+    public DbSet<GlobalUser> GlobalUsers => Set<GlobalUser>();
+    public DbSet<Comment> Comments => Set<Comment>();
+
+    public Task<int> SaveChangesAsync() => base.SaveChangesAsync();
 }

@@ -5,7 +5,7 @@ using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Users.Events;
-public class GetUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IList<GlobalUser>>>
+public class GetUsersHandler : IRequestHandler<GetUsersQuery, Result<IList<GlobalUser>>>
 {
     private readonly IUserService _context;
 
@@ -14,7 +14,7 @@ public class GetUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IList<Gl
         _context = context;
     }
 
-    public async Task<Result<IList<GlobalUser>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IList<GlobalUser>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
         return await _context.GetAllUsersAsync();
     }

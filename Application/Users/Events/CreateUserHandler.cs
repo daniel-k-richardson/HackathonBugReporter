@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Dtos;
+using Application.Common.Interfaces;
 using Application.Users.Commands.CreateUser;
 using AutoMapper;
 using Domain.Entities;
@@ -6,25 +7,27 @@ using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Users.Events;
-public class CreateUserHandler : IRequestHandler<CreateUserCommand, Result<GlobalUser>>
+public class CreateUserHandler : IRequestHandler<CreateUserCommand, Result<User>>
 {
-    private readonly IUserService _userService;
+    private readonly IAppDbContext _appDbContext;
     private readonly IMapper _mapper;
 
     public CreateUserHandler(
-        IUserService userService,
-        IMapper mapper)
+        IMapper mapper,
+        IAppDbContext appDbContext)
     {
-        _userService = userService;
         _mapper = mapper;
+        _appDbContext = appDbContext;
     }
 
-    public async Task<Result<GlobalUser>> Handle(
+    public async Task<Result<User>> Handle(
         CreateUserCommand request,
         CancellationToken cancellationToken)
     {
+        var user = _mapper.Map<GlobalUser>(request.User);
+        await _appDbContext.GlobalUsers.AddAsync(user, cancellationToken);
+        await _appDbContext.SaveChangesAsync();
 
-        //var user = _mapper.Map<GlobalUser>(request.User);
-        return await _userService.CreateUserAsync(request.User);
+        return _mapper.Map<User>(user);
     }
 }

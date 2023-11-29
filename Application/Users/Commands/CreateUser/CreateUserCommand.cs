@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Dtos;
 using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Users.Commands.CreateUser;
-public record CreateUserCommand(GlobalUser User) : IRequest<Result<GlobalUser>>;
+public record CreateUserCommand(User User) : IRequest<Result<User>>;
