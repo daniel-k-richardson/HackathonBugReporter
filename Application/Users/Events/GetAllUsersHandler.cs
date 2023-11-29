@@ -9,11 +9,13 @@ public class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IList
 {
     private readonly IUserService _context;
 
-    public GetAllUsersHandler(IUserService context) => _context = context;
+    public GetAllUsersHandler(IUserService context)
+    {
+        _context = context;
+    }
 
     public async Task<Result<IList<GlobalUser>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
-        var result = await _context.GetAllUsersAsync();
-        return result;
+        return await _context.GetAllUsersAsync();
     }
 }

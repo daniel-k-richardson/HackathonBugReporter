@@ -19,7 +19,10 @@ public class UsersController : ControllerBase
     {
         var query = new GetAllUsersQuery();
         var result = await _mediator.Send(query);
-        return result.Match<IActionResult>(success => Ok(success), error => BadRequest(error));
+
+        return result.Match<IActionResult>(
+            success => Ok(success),
+            error => BadRequest(error));
 
     }
 
@@ -28,7 +31,9 @@ public class UsersController : ControllerBase
     {
         var query = new GetUserQuery(Id);
         var result = await _mediator.Send(query);
-        return result.Match<IActionResult>(success => success is null ? NotFound() : Ok(success), error => BadRequest(error));
+        return result.Match<IActionResult>(
+            success => success is null ? NotFound() : Ok(success),
+            error => BadRequest(error));
     }
 
     [HttpPost()]
@@ -36,17 +41,20 @@ public class UsersController : ControllerBase
     {
         var query = new CreateUserCommand(user);
         var result = await _mediator.Send(query);
-        return result.Match<IActionResult>(success => Ok(success), error => BadRequest(error));
+        return result.Match<IActionResult>(
+            success => Ok(success),
+            error => BadRequest(error));
     }
 
     [HttpPut("{Id}")]
     public async Task<IActionResult> Put(int id, GlobalUser user)
     {
-
         var updateQuery = new UpdateUserCommand(id, user);
         var result = await _mediator.Send(updateQuery);
 
-        return result.Match<IActionResult>(success => Ok(success), error => BadRequest(error));
+        return result.Match<IActionResult>(
+            success => Ok(success),
+            error => BadRequest(error));
     }
 
     [HttpDelete("{id}")]
@@ -55,7 +63,9 @@ public class UsersController : ControllerBase
         var query = new DeleteUserCommand(id);
         var result = await _mediator.Send(query);
 
-        return result.Match<IActionResult>(success => NoContent(), error => BadRequest(error));
+        return result.Match<IActionResult>(
+            success => NoContent(),
+            error => BadRequest(error));
     }
 
     [HttpGet("{id}/assigned-bugs")]

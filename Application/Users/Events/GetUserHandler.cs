@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.Users.Queries;
+using AutoMapper;
 using Domain.Entities;
 using LanguageExt.Common;
 using MediatR;
@@ -9,13 +10,17 @@ namespace Application.Users.Events
     public class GetUserHandler : IRequestHandler<GetUserQuery, Result<GlobalUser>>
     {
         private readonly IUserService _context;
+        private readonly IMapper _mapper;
 
-        public GetUserHandler(IUserService context) => _context = context;
-
-        public async Task<Result<GlobalUser>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public GetUserHandler(IUserService context, IMapper mapper)
         {
-            var result = await _context.GetUserAsync(request.UserId);
-            return result;
+            _context = context;
+            _mapper = mapper;
+        }
+
+        public Task<Result<GlobalUser>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        {
+            return  _context.GetUserAsync(request.UserId);
         }
     }
 }
