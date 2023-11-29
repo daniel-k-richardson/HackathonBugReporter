@@ -2,5 +2,5 @@
 using LanguageExt.Common;
 using MediatR;
 
-namespace Application.Users.Commands;
+namespace Application.Users.Commands.UpdateUser;
 public record UpdateUserCommand(int UserId, GlobalUser User) : IRequest<Result<GlobalUser>>;

@@ -1,8 +1,7 @@
-﻿using Application.Common;
-using Application.Users.Commands;
+﻿using Application.Common.Interfaces;
 using FluentValidation;
 
-namespace Application.Users.PipelineBehaviors;
+namespace Application.Users.Commands.DeleteUser;
 public class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
 {
     public DeleteUserCommandValidator(IUserService userService)
@@ -11,7 +10,7 @@ public class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
 
         RuleFor(x => x.userId).MustAsync(async (userId, _) =>
         {
-            return (await userService.GetUserAsync(userId)) != null;
+            return await userService.GetUserAsync(userId) != null;
         }).WithMessage("That user does not exist.");
     }
 }

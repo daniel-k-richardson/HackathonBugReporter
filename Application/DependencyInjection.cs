@@ -1,6 +1,5 @@
 ﻿using Application.Common.Validation;
-using Application.Users.Commands;
-using Application.Users.PipelineBehaviors;
+using Application.Users.Commands.DeleteUser;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 namespace Application;

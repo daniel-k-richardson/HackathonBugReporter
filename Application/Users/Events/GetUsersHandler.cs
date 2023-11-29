@@ -1,15 +1,15 @@
-﻿using Application.Common;
+﻿using Application.Common.Interfaces;
 using Application.Users.Queries;
 using Domain.Entities;
 using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Users.Events;
-public class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IList<GlobalUser>>>
+public class GetUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IList<GlobalUser>>>
 {
     private readonly IUserService _context;
 
-    public GetAllUsersHandler(IUserService context)
+    public GetUsersHandler(IUserService context)
     {
         _context = context;
     }

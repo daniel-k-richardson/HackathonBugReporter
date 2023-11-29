@@ -1,4 +1,4 @@
-﻿using Application.Common;
+﻿using Application.Common.Interfaces;
 using Infrastructure.Common;
 using Infrastructure.Data;
 using Infrastructure.HostedService;

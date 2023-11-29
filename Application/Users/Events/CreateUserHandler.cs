@@ -1,5 +1,5 @@
-﻿using Application.Common;
-using Application.Users.Commands;
+﻿using Application.Common.Interfaces;
+using Application.Users.Commands.CreateUser;
 using AutoMapper;
 using Domain.Entities;
 using LanguageExt.Common;

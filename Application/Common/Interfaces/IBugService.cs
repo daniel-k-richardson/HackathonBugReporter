@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Application.Common;
+namespace Application.Common.Interfaces;
 public interface IBugService
 {
     IEnumerable<Bug> GetAllBugs();

@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using LanguageExt.Common;
 
-namespace Application.Common;
+namespace Application.Common.Interfaces;
 public interface IUserService
 {
     Task<Result<IList<GlobalUser>>> GetAllUsersAsync();

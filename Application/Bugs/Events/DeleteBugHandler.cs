@@ -1,5 +1,5 @@
 ﻿using Application.Bugs.Commands;
-using Application.Common;
+using Application.Common.Interfaces;
 using MediatR;
 
 namespace Application.Bugs.Events;

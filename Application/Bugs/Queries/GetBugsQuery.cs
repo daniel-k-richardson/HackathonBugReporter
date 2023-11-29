@@ -3,9 +3,9 @@ using MediatR;
 
 
 namespace Application.Bugs.Queries;
-public class GetAllBugsQuery : IRequest<IEnumerable<Bug>>
+public class GetBugsQuery : IRequest<IEnumerable<Bug>>
 {
-    public GetAllBugsQuery() 
+    public GetBugsQuery() 
     {
     }
 }

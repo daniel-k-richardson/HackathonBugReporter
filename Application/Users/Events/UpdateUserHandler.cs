@@ -1,5 +1,5 @@
-﻿using Application.Common;
-using Application.Users.Commands;
+﻿using Application.Common.Interfaces;
+using Application.Users.Commands.UpdateUser;
 using Domain.Entities;
 using LanguageExt.Common;
 using MediatR;

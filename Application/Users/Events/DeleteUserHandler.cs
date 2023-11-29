@@ -1,5 +1,5 @@
-﻿using Application.Common;
-using Application.Users.Commands;
+﻿using Application.Common.Interfaces;
+using Application.Users.Commands.DeleteUser;
 using LanguageExt.Common;
 using MediatR;
 
