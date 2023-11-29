@@ -2,11 +2,10 @@
 using LanguageExt.Common;
 using MediatR;
 
-namespace Application.Users.Validation;
-public class ValidationBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, Result<TResult>> 
+namespace Application.Common.Validation;
+public class ValidationBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, Result<TResult>>
     where TRequest : notnull
 {
-
     private readonly IValidator<TRequest> _validator;
 
     public ValidationBehavior(IValidator<TRequest> validator) => _validator = validator;

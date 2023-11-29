@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddHostedService<DatabaseMigrationService>();
 
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IBugService, BugService>();
 
         return services;
     }

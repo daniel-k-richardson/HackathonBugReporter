@@ -21,16 +21,9 @@ public class UserService : IUserService
     public async Task<Result<bool>> DeleteUserAsync(int id)
     {
         var user = await _context.GlobalUsers.FindAsync(id);
+        _context.GlobalUsers.Remove(user!);
 
-        if (user is null)
-        {
-            var error = new ArgumentException("User not found", nameof(id));
-            return new Result<bool>(error);
-        }
-
-        _context.GlobalUsers.Remove(user);
         var hasChanges = await _context.SaveChangesAsync();
-
         return hasChanges > 0;
     }
 
