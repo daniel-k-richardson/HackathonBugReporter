@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Commands.UpdateUser;
 public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
@@ -18,7 +19,7 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 
         RuleFor(x => x.UserId).MustAsync(async (userId, _) =>
         {
-            var user = await context.GlobalUsers.FindAsync(userId);
+            var user = await context.GlobalUsers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
             return user is not null;
         }).WithMessage("Cannot update user that does not exist");
 

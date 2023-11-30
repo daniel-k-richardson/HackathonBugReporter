@@ -24,7 +24,6 @@ public class UsersController : ControllerBase
         var result = await _mediator.Send(query);
 
         return result.Match<IActionResult>(Ok, BadRequest);
-
     }
 
     [HttpGet("{Id}")]
@@ -33,10 +32,8 @@ public class UsersController : ControllerBase
         var query = new GetUserQuery(Id);
         var result = await _mediator.Send(query);
 
-
         return result.Match<IActionResult>(
-            success => success is null ? NotFound() : Ok(success),
-            BadRequest);
+            success => success is null ? NotFound() : Ok(success), BadRequest);
     }
 
     [HttpPost()]
@@ -48,7 +45,7 @@ public class UsersController : ControllerBase
         return result.Match<IActionResult>(Ok, BadRequest);
     }
 
-    [HttpPut("{Id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, User user)
     {
         var updateQuery = new UpdateUserCommand(id, user);
@@ -63,8 +60,7 @@ public class UsersController : ControllerBase
         var query = new DeleteUserCommand(id);
         var result = await _mediator.Send(query);
 
-        return result.Match<IActionResult>(
-            success => NoContent(), BadRequest);
+        return result.Match<IActionResult>(success => NoContent(), BadRequest);
     }
 
     [HttpGet("{id}/assigned-bugs")]

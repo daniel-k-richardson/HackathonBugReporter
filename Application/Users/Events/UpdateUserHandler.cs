@@ -21,11 +21,11 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Result<User>
     public async Task<Result<User>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         GlobalUser globalUser = await _context.GlobalUsers.FindAsync(request.UserId, cancellationToken);
-        globalUser = _mapper.Map<GlobalUser>(request.User);
+        var update = _mapper.Map(request.User, globalUser);
 
-        _context.GlobalUsers.Update(globalUser);
+        _context.GlobalUsers.Update(update);
         await _context.SaveChangesAsync();
 
-        return _mapper.Map<User>(globalUser);
+        return _mapper.Map<User>(update);
     }
 }

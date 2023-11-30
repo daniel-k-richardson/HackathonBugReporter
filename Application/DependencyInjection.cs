@@ -22,7 +22,6 @@ public static class DependencyInjection
 
         services.AddAutoMapper(typeof(DependencyInjection));
 
-
         return services;
     }
 }
