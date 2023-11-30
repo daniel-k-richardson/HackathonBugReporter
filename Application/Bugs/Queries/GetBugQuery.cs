@@ -2,7 +2,7 @@
 using MediatR;
 
 namespace Application.Bugs.Queries;
-public class GetBugQuery : IRequest<Bug>
+public class GetBugQuery : IRequest<Bug?>
 {
     public int BugId { get;}
 

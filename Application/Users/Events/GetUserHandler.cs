@@ -1,26 +1,27 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Dtos;
+using Application.Common.Interfaces;
 using Application.Users.Queries;
 using AutoMapper;
-using Domain.Entities;
 using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Users.Events
 {
-    public class GetUserHandler : IRequestHandler<GetUserQuery, Result<GlobalUser>>
+    public class GetUserHandler : IRequestHandler<GetUserQuery, Result<User?>>
     {
-        private readonly IUserService _context;
+        private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetUserHandler(IUserService context, IMapper mapper)
+        public GetUserHandler(IAppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public Task<Result<GlobalUser>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<Result<User?>> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            return  _context.GetUserAsync(request.UserId);
+            var user = await _context.GlobalUsers.FindAsync(request.UserId, cancellationToken);
+            return _mapper.Map<User>(user);
         }
     }
 }

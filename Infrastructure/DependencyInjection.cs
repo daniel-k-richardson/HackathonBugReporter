@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using Infrastructure.Common;
 using Infrastructure.Data;
 using Infrastructure.HostedService;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +17,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
-
-        
         services.AddHostedService<DatabaseMigrationService>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IBugService, BugService>();
 
         return services;
     }

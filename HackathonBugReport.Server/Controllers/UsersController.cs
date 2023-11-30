@@ -3,7 +3,6 @@ using Application.Users.Commands.CreateUser;
 using Application.Users.Commands.DeleteUser;
 using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +12,10 @@ namespace HackathonBugReport.Server.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
-
     private readonly IMediator _mediator;
-    public UsersController(IMediator mediator) => _mediator = mediator;
+
+    public UsersController(IMediator mediator) 
+        => _mediator = mediator;
 
     [HttpGet]
     public async Task<IActionResult> Get()
@@ -23,9 +23,7 @@ public class UsersController : ControllerBase
         var query = new GetUsersQuery();
         var result = await _mediator.Send(query);
 
-        return result.Match<IActionResult>(
-            success => Ok(success),
-            error => BadRequest(error));
+        return result.Match<IActionResult>(Ok, BadRequest);
 
     }
 
@@ -38,7 +36,7 @@ public class UsersController : ControllerBase
 
         return result.Match<IActionResult>(
             success => success is null ? NotFound() : Ok(success),
-            error => BadRequest(error));
+            BadRequest);
     }
 
     [HttpPost()]
@@ -47,20 +45,16 @@ public class UsersController : ControllerBase
         var query = new CreateUserCommand(user);
         var result = await _mediator.Send(query);
 
-        return result.Match<IActionResult>(
-            success => Ok(success),
-            error => BadRequest(error));
+        return result.Match<IActionResult>(Ok, BadRequest);
     }
 
     [HttpPut("{Id}")]
-    public async Task<IActionResult> Put(int id, GlobalUser user)
+    public async Task<IActionResult> Put(int id, User user)
     {
         var updateQuery = new UpdateUserCommand(id, user);
         var result = await _mediator.Send(updateQuery);
 
-        return result.Match<IActionResult>(
-            success => Ok(success),
-            error => BadRequest(error));
+        return result.Match<IActionResult>(Ok, BadRequest);
     }
 
     [HttpDelete("{id}")]
@@ -70,8 +64,7 @@ public class UsersController : ControllerBase
         var result = await _mediator.Send(query);
 
         return result.Match<IActionResult>(
-            success => NoContent(),
-            error => BadRequest(error));
+            success => NoContent(), BadRequest);
     }
 
     [HttpGet("{id}/assigned-bugs")]

@@ -14,9 +14,8 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
         RuleFor(x => x.User.Email)
             .MustAsync(async (email, _) =>
             {
-                var t = await context.GlobalUsers.AnyAsync(x => x.Email != email);
-
-                return t;
+                var user = await context.GlobalUsers.FirstOrDefaultAsync(x => x.Email == email);
+                return user == null;
             }).WithMessage("email already exists.");
     }
 }

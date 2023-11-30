@@ -25,9 +25,9 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Result<User>
         CancellationToken cancellationToken)
     {
         var user = _mapper.Map<GlobalUser>(request.User);
-        await _appDbContext.GlobalUsers.AddAsync(user, cancellationToken);
+        var result = await _appDbContext.GlobalUsers.AddAsync(user, cancellationToken);
         await _appDbContext.SaveChangesAsync();
 
-        return _mapper.Map<User>(user);
+        return _mapper.Map<User>(result);
     }
 }

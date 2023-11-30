@@ -2,17 +2,17 @@
 using Domain.Entities;
 using MediatR;
 using Application.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Bugs.Events;
 public class GetBugsHandler : IRequestHandler<GetBugsQuery, IEnumerable<Bug>>
 {
-    private readonly IBugService _context;
+    private readonly IAppDbContext _context;
 
-    public GetBugsHandler(IBugService context) => _context = context;
+    public GetBugsHandler(IAppDbContext context) => _context = context;
 
     public async Task<IEnumerable<Bug>> Handle(GetBugsQuery request, CancellationToken cancellationToken)
     {
-        var result = _context.GetAllBugs();
-        return result;
+        return await _context.Bugs.ToListAsync();
     }
 }

@@ -5,13 +5,16 @@ using MediatR;
 namespace Application.Bugs.Events;
 public class DeleteBugHandler : IRequestHandler<DeleteBugCommand, bool>
 {
-    private readonly IBugService _bugService;
+    private readonly IAppDbContext _context;
 
-    public DeleteBugHandler(IBugService bugService) => _bugService = bugService;
+    public DeleteBugHandler(IAppDbContext context) => _context = context;
 
     public async Task<bool> Handle(DeleteBugCommand request, CancellationToken cancellationToken)
     {
-        var result = await _bugService.DeleteBugAsync(request.bugId);
-        return result;
+        var bug = await _context.Bugs.FindAsync(request.bugId);
+        _context.Bugs.Remove(bug);
+        var result = await _context.SaveChangesAsync();
+
+        return result > 0;
     }
 }

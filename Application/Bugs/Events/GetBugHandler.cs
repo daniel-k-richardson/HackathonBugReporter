@@ -4,15 +4,15 @@ using Domain.Entities;
 using MediatR;
 
 namespace Application.Bugs.Events;
-public class GetBugHandler : IRequestHandler<GetBugQuery, Bug>
+public class GetBugHandler : IRequestHandler<GetBugQuery, Bug?>
 {
-    private readonly IBugService _context;
+    private readonly IAppDbContext _context;
 
-    public GetBugHandler(IBugService context) => _context = context;
+    public GetBugHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Bug> Handle(GetBugQuery request, CancellationToken cancellationToken)
+    public async Task<Bug?> Handle(GetBugQuery request, CancellationToken cancellationToken)
     {
-        var result = await _context.GetBugAsync(request.BugId);
+        var result = await _context.Bugs.FindAsync(request.BugId);
         return result;
     }
 }

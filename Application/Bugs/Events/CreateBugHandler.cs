@@ -6,13 +6,15 @@ using MediatR;
 namespace Application.Bugs.Events;
 public class CreateBugHandler : IRequestHandler<CreateBugCommand, Bug>
 {
-    private readonly IBugService _bugService;
+    private readonly IAppDbContext _context;
 
-    public CreateBugHandler(IBugService bugService) => _bugService = bugService;
+    public CreateBugHandler(IAppDbContext context) => _context = context;
 
     public async Task<Bug> Handle(CreateBugCommand request, CancellationToken cancellationToken)
     {
-        var result = await _bugService.CreateBugAsync(request.BugRequest);
-        return result;
+        await _context.Bugs.AddAsync(request.BugRequest);
+        await _context.SaveChangesAsync();
+
+        return request.BugRequest;
     }
 }
